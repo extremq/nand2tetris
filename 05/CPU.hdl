@@ -39,5 +39,46 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    /* Memory and A */
+    Not(in=instruction[15], out=Ainstruction);
+
+    Mux16(a=outALU, b=instruction, sel=Ainstruction, out=instructionMux); // Ainstruction is 1
+                                                                        // if this is a @ instruction
+    Or(a=Ainstruction, b=instruction[5], out=writeA); // check either @ or d1
+    ARegister(in=instructionMux, load=writeA, out=outA, out[0..14]=addressM);
+
+    Mux16(a=outA, b=inM, sel=instruction[12], out=outMem); // check if we interpret the A as address
+
+    And(a=instruction[3], b=instruction[15], out=writeM); // check if we write to memory
+
+    /* ALU AND D */
+    And(a=instruction[15], b=instruction[4], out=writeD); // check if we write to D
+    DRegister(in=outALU, load=writeD, out=outD); // check for d2
+    ALU(x=outD, y=outMem, 
+        zx=instruction[11],
+        nx=instruction[10], 
+        zy=instruction[9], 
+        ny=instruction[8],
+        f=instruction[7], 
+        no=instruction[6], out=outALU, out=outM, zr=zero, ng=neg);
+    Not(in=zero, out=notzr);
+    Not(in=neg, out=notng);
+    And(a=notzr, b=notng, out=pos); // update the jumps for the PC
+
+    /* BEGIN PC */
+    Or(a=instruction[0], b=instruction[1], out=lnulljumpcheck);
+    Or(a=lnulljumpcheck, b=instruction[2], out=nulljumpcheck);  // true if j1,j2,j3 arent all 0 
+
+
+    Mux(a=false, b=neg, sel=instruction[2], out=j1check);
+    Mux(a=false, b=zero, sel=instruction[1], out=j2check);
+    Mux(a=false, b=pos, sel=instruction[0], out=j3check); // check the conditions
+
+    Or(a=j1check, b=j2check, out=lcondcheck);
+    Or(a=lcondcheck, b=j3check, out=condcheck); // check if condition is true
+    
+    And(a=condcheck, b=nulljumpcheck, out=lcanjump);
+    And(a=lcanjump, b=instruction[15], out=canjump); // see if jump is valid
+
+    PC(in=outA, load=canjump, inc=true, reset=reset, out[0..14]=pc);
 }
