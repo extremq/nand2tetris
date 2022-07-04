@@ -69,5 +69,6 @@ while parser.hasMoreCommands():
     output = output + binary + '\n'
 
 
-final = open('output.txt', 'w')
+final = open('output.hack', 'w')
 final.write(output)
+print("Done!")

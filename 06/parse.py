@@ -171,20 +171,7 @@ class Parser():
             return self.L_COMMAND
         else:
             return self.C_COMMAND
-
-    def symbol(self):
-        # Returns the symbol or decimal
-        # Xxx of the current command
-        # @Xxx or (Xxx). Should be called
-        # only when commandType() is
-        # A_COMMAND or L_COMMAND.
-        line = self.lines[self.counter]
-
-        if line[0] == "@":
-            return self.symbols[line[1:]]
-        else:
-            return self.symbols[line[1:-1]] 
-
+            
     def dest(self, value):
         # Returns the dest mnemonic.
         return self.dest_dict[value]
