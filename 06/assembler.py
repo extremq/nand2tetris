@@ -72,3 +72,4 @@ while parser.hasMoreCommands():
 final = open('output.hack', 'w')
 final.write(output)
 print("Done!")
+print(parser.symbols)
