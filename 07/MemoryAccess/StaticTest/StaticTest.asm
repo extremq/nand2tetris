@@ -5,8 +5,7 @@ D=A
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // push constant 333
 @333
 D=A
@@ -14,8 +13,7 @@ D=A
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // push constant 888
 @888
 D=A
@@ -23,8 +21,7 @@ D=A
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // pop static 8
 @8
 D=A
@@ -39,8 +36,7 @@ D=M
 A=M
 M=D
 @SP
-D=M-1
-M=D
+M=M-1
 // pop static 3
 @3
 D=A
@@ -55,8 +51,7 @@ D=M
 A=M
 M=D
 @SP
-D=M-1
-M=D
+M=M-1
 // pop static 1
 @1
 D=A
@@ -71,8 +66,7 @@ D=M
 A=M
 M=D
 @SP
-D=M-1
-M=D
+M=M-1
 // push static 3
 @3
 D=A
@@ -83,8 +77,7 @@ D=M
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // push static 1
 @1
 D=A
@@ -95,8 +88,7 @@ D=M
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // sub
 @SP
 A=M-1
@@ -116,8 +108,7 @@ D=M
 A=M
 M=D
 @SP
-D=M+1
-M=D
+M=M+1
 // add
 @SP
 A=M-1
@@ -127,3 +118,6 @@ M=M+D
 @SP
 D=M-1
 M=D
+(INFINITE)
+@INFINITE
+0;JMP
