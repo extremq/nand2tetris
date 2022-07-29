@@ -1,0 +1,30 @@
+class StringFunc {
+    /* 
+    Simple function test. Nothing fancy in particular.
+    */
+    function String concat(String a, String b) {
+        var int concat_length;
+        var int a_length;
+        var int b_length;
+        var int count;
+        var String result;
+        
+        let a_length = a.length();
+        let b_length = b.length();
+        let concat_length = a_length + b_length;
+        
+        let result = String.new(concat_length + 1);
+        
+        let count = 0;
+        while (count < a_length) {
+            do result.appendChar(a.charAt(count));
+            let count = count + 1;
+        }
+        let count = 0;
+        while (count < b_length) {
+            do result.appendChar(b.charAt(count));
+            let count = count + 1;
+        }
+        return result;
+    }
+}

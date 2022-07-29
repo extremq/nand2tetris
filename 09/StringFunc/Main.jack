@@ -1,0 +1,11 @@
+class Main {
+    function void main() {
+        var String a;
+        var String b;
+
+        let a = Keyboard.readLine("First string: ");
+        let b = Keyboard.readLine("Second string: ");
+        do Output.printString(StringFunc.concat(a, b));
+        return;
+    }
+}
